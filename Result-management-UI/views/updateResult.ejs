@@ -1,0 +1,50 @@
+<div class="modal fade" id="updateResult<%= e %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-e"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="height: 26    rem;">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update Student Record</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+
+                        <form action="/teacher/updateResult" method="POST">
+                            <div>
+                                <label for="InputRollNo" class="form-label">Roll No.</label>
+                                <input name="RollNo" type="number" value="<%= student[e].RollNo %>" class="form-control"
+                                    id="InputRollNo" readonly="readonly" style="color: #535151; border-style: none;" required>
+
+                            </div>
+                            <div>
+                                <label for="InputName" class="form-label">Name</label>
+                                <input name="Name" type="text" value="<%= student[e].Name %>" class="form-control" id="InputName" required>
+
+                            </div>
+                            <div>
+                                <label for="InputDOB" class="form-label">Date of Birth</label>
+                                <input name="DOB" type="date" min="2000-01-01" max="2007-01-01" value="<%= student[e].DOB %>" class="form-control" id="InputDOB" required>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="InputScore" class="form-label">Score (out of 100)</label>
+                                <input name="Score" type="number" min="0" max="100" value="<%= student[e].Score %>" class="form-control" id="InputScore" required>
+
+                            </div>
+                        
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button id="canceladd" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<%-include('header')-%>
+
+    <nav class="navbar navbar-light bg-primary bg-gradient">
+        <div class="container justify-content-center">
+            <h2 style="color: aliceblue;">Result Management System</h2>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-5">
+        <h3>
+            <div class="row justify-content-center">Login As</div>
+        </h3>       
+
+        <div class="row" style="height: 100px;">
+            <div class="col text-center card">
+                <button id="teacher" type="button" class="btn btn-primary bg-gradient px-5 button" data-bs-toggle="modal"
+                    data-bs-target="#teacherLogin">
+                    Teacher
+                </button>
+            </div>
+
+            <div class="col text-center card">
+                <button id="student" type="button" class="btn btn-primary bg-gradient px-5 button" data-bs-toggle="modal"
+                    data-bs-target="#studentLogin">
+                    Student
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        function simulateClick(control) {
+            if (document.all) {
+                control.click();
+            } else {
+                var evObj = document.createEvent('MouseEvents');
+                evObj.initMouseEvent('click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null);
+                control.dispatchEvent(evObj);
+            }
+        }
+    </script>
+
+<% if(locals.errorStudent) {%>
+    <%- include('loginStudent', {error: errorStudent}) -%> 
+    <script>
+        simulateClick(document.getElementById('student'));
+    </script>
+<% } %> 
+<% if(locals.errorTeacher) {%>
+    <%- include('loginTeacher', {error: errorTeacher}) -%>
+    <script>
+        simulateClick(document.getElementById('teacher'));
+    </script>
+<% } %> 
+
+<%- include('loginStudent') -%>
+<%- include('loginTeacher') -%>
+
+<%-include('footer')-%>

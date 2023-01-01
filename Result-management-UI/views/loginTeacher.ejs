@@ -1,0 +1,43 @@
+<div class="modal fade" id="teacherLogin" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="height: 21rem;">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Teacher Login</h5>
+                <button type="button" id="cancel" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+
+                        <h5 style="color: red; text-align: center;">
+                            <%= locals.errorTeacher ? errorTeacher : null %>
+                        </h5>
+                        <form action="/teacher/login" method="POST">
+
+                            <div>
+                                <label for="exampleInputEmail1" class="form-label">Email</label>
+                                <input name="email" type="email" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input name="password" type="password" class="form-control" required>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<%-include('header')-%>
+
+    <nav class="navbar navbar-light bg-primary bg-gradient">
+        <div class="container justify-content-center">
+            <h2 style="color: aliceblue;">Result Management System</h2>
+        </div>
+        <div class="d-flex px-2">
+            <form action="/logout">
+                <button id="add" type="submit" class="btn btn-light py-0 px-2">Logout</button>
+            </form>
+
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="table-wrapper transparent">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2><b>Student Records : <%= locals.student ? student.length : "0" %></b></h2>
+                    </div>
+                    <div class="col-sm-4">
+                        <button  type="button" class="btn btn-info add-new button"
+                            data-bs-toggle="modal" data-bs-target="#addResult"><i class="fa fa-plus"></i>Add New
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <h3 style="color: red; text-align: center;">
+                <%= locals.error ? error : null %>
+            </h3>
+
+            <% if(locals.status==401) {%>
+                <form action="/" style="text-align: center">
+                    <button type="submit" class="btn btn-info py-0 px-2">Login again</button>
+                </form>
+                <br>
+            <% } %>  
+
+            <table class="table table-bordered ">
+                <thead class="bg-gradient">
+                    <tr>
+                        <th class="col-sm-1">Roll No.</th>
+                        <th>Student Name</th>
+                        <th>Date of Birth</th>
+                        <th>Score</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <% if(locals.student) {%>
+                    <% for (var i=0; i < locals.student.length; i++) { %>
+                        <tr id="record">
+                            <td>
+                                <%= student[i].RollNo %>
+                            </td>
+                            <td>
+                                <%= student[i].Name %>
+                            </td>
+                            <td>
+                                <%= student[i].DOB.split("-").reverse().join("-") %>
+                            </td>
+                            <td>
+                                <%= student[i].Score %>
+                            </td>
+                            <td>
+
+                                <button type="button" class="edit" id="EditButton" data-bs-toggle="modal"
+                                    data-bs-target="#updateResult<%= i %>"><i class="material-icons"></i></button>
+                                <%-include('updateResult', {e: i})-%>
+                                
+
+                                <button data-bs-toggle="modal" data-bs-target="#confirmDelete<%= i%>"  class="delete"><i class="material-icons"></i></button>
+
+                                <%-include('deleteResult', {i: i})-%>
+                            </td>
+                        </tr>
+                    <%}%>
+                <% } %>
+            </table>
+        </div>
+    </div>
+
+
+   
+
+    
+    
+
+
+<%-include('addResult')-%>
+
+
+<%-include('footer')-%>

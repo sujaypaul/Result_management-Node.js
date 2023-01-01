@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-image: url('/assets/background_png.jfif');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.row {
+    align-items: flex-end;
+}
+
+.col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+}
+
+.button,
+.navbar {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.card {
+    height: 300%;
+    margin: 4%;
+    background-color: transparent;
+    align-items: center;
+}
+
+.card:hover {
+    /* transform: scale(1.2); */
+    background-color:hsl(180, 100%, 94%,0.3);
+    /* color: white; */
+}

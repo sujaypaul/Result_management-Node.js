@@ -1,0 +1,56 @@
+<div class="modal fade" id="confirmDelete<%=i%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete this Result?</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="container col">
+                    <div class="row">
+                        <div><b> Roll No :</b></div>
+                        <div><b>Name :</b></div>
+                        <div><b>Date of Birth :</b></div>
+                        <div><b>Score :</b></div>
+
+                        
+                        <div><br></div>
+                        <div>
+                            <button type="button" class="btn btn-danger" style="margin-left: 45%; width: 5rem;"
+                            onclick="window.location.href='/teacher/delete/<%= student[i].RollNo%>';">Yes</button>    
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div>
+                            <%= student[i].RollNo %>
+                        </div>
+                        <div>
+                            <%= student[i].Name %>
+                        </div>
+                        <div>
+                            <%= student[i].DOB.split("-").reverse().join("-") %>
+                        </div>
+                        <div>
+                            <%= student[i].Score %>
+                        </div>
+                        <div><br></div>
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" style="margin-left: 5%; width: 5rem;">No</button>
+
+                    </div>
+                    <div class="row">
+                        <div style="color: red; width: 100px; height: 100px; padding-top:10% ;"><i class="material-icons" style="font-size: 80px;">delete forever</i></div>
+                    </div>
+                </div>
+                <div class="container col">
+                    
+                    <div class="row">
+                    </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
