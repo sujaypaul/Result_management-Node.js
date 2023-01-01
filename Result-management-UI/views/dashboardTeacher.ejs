@@ -19,11 +19,11 @@
                         <h2><b>Student Records : <%= locals.student ? student.length : "0" %></b></h2>
                     </div>
                     <div class="col-sm-4">
-                        <button  type="button" class="btn btn-info add-new button"
-                            data-bs-toggle="modal" data-bs-target="#addResult"><i class="fa fa-plus"></i>Add New
+                        <button type="button" class="btn btn-info add-new button" data-bs-toggle="modal"
+                            data-bs-target="#addResult"><i class="fa fa-plus"></i>Add New
                         </button>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -31,12 +31,7 @@
                 <%= locals.error ? error : null %>
             </h3>
 
-            <% if(locals.status==401) {%>
-                <form action="/" style="text-align: center">
-                    <button type="submit" class="btn btn-info py-0 px-2">Login again</button>
-                </form>
-                <br>
-            <% } %>  
+            <% if(locals.student.length!==0) {%>
 
             <table class="table table-bordered ">
                 <thead class="bg-gradient">
@@ -48,7 +43,7 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <% if(locals.student) {%>
+                
                     <% for (var i=0; i < locals.student.length; i++) { %>
                         <tr id="record">
                             <td>
@@ -68,27 +63,39 @@
                                 <button type="button" class="edit" id="EditButton" data-bs-toggle="modal"
                                     data-bs-target="#updateResult<%= i %>"><i class="material-icons"></i></button>
                                 <%-include('updateResult', {e: i})-%>
-                                
 
-                                <button data-bs-toggle="modal" data-bs-target="#confirmDelete<%= i%>"  class="delete"><i class="material-icons"></i></button>
 
-                                <%-include('deleteResult', {i: i})-%>
+                                    <button data-bs-toggle="modal" data-bs-target="#confirmDelete<%= i%>"
+                                        class="delete"><i class="material-icons"></i></button>
+
+                                    <%-include('deleteResult', {i: i})-%>
                             </td>
                         </tr>
-                    <%}%>
-                <% } %>
+                        <%}%>
+                            
             </table>
+            <% }%>
+            <% if(locals.student.length==0) { %>
+                <div class="noRecords">
+                    No result has been added yet.
+                    <br><br>
+                    <button type="button" class="btn btn-info add-new button" data-bs-toggle="modal"
+                        data-bs-target="#addResult"><i class="fa fa-plus"></i>Add New
+                    </button>
+
+                </div>
+                <% } %>
         </div>
     </div>
 
 
-   
-
-    
-    
 
 
-<%-include('addResult')-%>
 
 
-<%-include('footer')-%>
+
+
+    <%-include('addResult')-%>
+
+
+        <%-include('footer')-%>

@@ -83,7 +83,7 @@ router.post('/addResult', async (req, res) => {
 
         response.json().then(data => {
             if (data.error) {
-                console.log(response.status + " : cannot add" + data.error);
+                console.log(response.status + " : cannot add " + data.error);
                 const Data = data.results;
                 Data.sort((a, b) => {
                     return a.RollNo - b.RollNo;

@@ -64,7 +64,7 @@ class UserService {
                 let token = req.headers['authorization'].split(" ")[1];
                 let decoded = jwt.verify(token, process.env.JWT_KEY);
 
-                console.log(decoded.role + " and parameter" + role)
+                console.log(decoded.role + " and parameter " + role)
                 if (decoded.role !== role) {
                     res.status(403).json({ "error": "you don't have permision" });
                 }

@@ -46,7 +46,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <% if(locals.result && locals.called) {%>
+                        <% if(locals.result) {%>
                             <div class="container col">
                                 <div class="row">
                                     <div><b> Roll No :</b></div>
@@ -86,7 +86,7 @@
                                 simulateClick(document.getElementById('view'));
                             </script>
 
-                            <% }else if(locals.result==null && locals.called){ %>
+                            <% }else if(locals.result==null){ %>
                                 <div style="color: red; text-align: center;">No result found</div>
                                 <script>
                                     function simulateClick(control) {

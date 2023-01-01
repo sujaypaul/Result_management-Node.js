@@ -107,6 +107,13 @@ table.table td .add {
     display: none;
 }
 
+.noRecords{
+    text-align: center;
+    height: 15rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
 .delete {
     border-style: none;
     background-color: transparent;

@@ -35,7 +35,13 @@ app.use('/student',studentRouter);
 
 //HOME ROUTE
 app.get('/', (req, res) => {
-    res.render('base', { title: "Login" });
+    if(req.session.role=="teacher"){
+        res.redirect('/teacher/dashboard');
+    }else if(req.session.role=="student"){
+        res.redirect('/student/dashboard');
+    }else{
+        res.render('base', { title: "Login" });
+    }
 })
 
 // route for logout
