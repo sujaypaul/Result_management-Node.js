@@ -52,12 +52,12 @@ router.post('/login', async (req, res) => {
 //__________________FIND RESULT___________________
 router.post('/findResult', userService.authenticateJWT("student") , async (req, res) => {
 
-    const result = await resultService.findRollDOB(req.body.RollNo, req.body.DOB)
+    const result = await resultService.findRollDOB(Number(req.body.RollNo), req.body.DOB)
 
     if (result) {
         return res.status(200).json( result );
     } else {
-        return res.status(404).json(result );
+        return res.status(404).json({error:"No result found"} );
     }
 
 })

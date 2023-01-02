@@ -29,7 +29,15 @@
 
             <h3 style="color: red; text-align: center;">
                 <%= locals.error ? error : null %>
+                <%= locals.status==401 ? "/ token expired": null  %> 
             </h3>
+            
+            <% if(locals.status==401) {%>
+                <form action="/loginAgain" style="text-align: center">
+                    <button type="submit" class="btn btn-info py-0 px-2">Login again</button>
+                </form>
+                <br>
+            <% } %>  
 
             <% if(locals.student.length!==0) {%>
 
@@ -75,7 +83,7 @@
                             
             </table>
             <% }%>
-            <% if(locals.student.length==0) { %>
+            <% if(locals.student.length==0 && locals.status!==401) { %>
                 <div class="noRecords">
                     No result has been added yet.
                     <br><br>

@@ -4,7 +4,6 @@ var fetch = require('node-fetch')
 
 //login
 router.post('/login', (req, res) => {
-
     fetch('http://localhost:3000/student/login', {
         method: 'POST',
         body: JSON.stringify(req.body),
@@ -26,7 +25,6 @@ router.post('/login', (req, res) => {
 
 // route for dashboard
 router.get('/dashboard', (req, res) => {
-
     if (!req.session.token) {
         res.redirect("/")
     }
@@ -34,6 +32,7 @@ router.get('/dashboard', (req, res) => {
         res.redirect('/teacher/dashboard');
     }
     else {
+        res.set('Cache-Control', 'no-store');
         res.render('dashboardStudent', { title: "Student Dashboard" })
     }
 })
@@ -47,7 +46,6 @@ router.post('/searchResult', async (req, res) => {
         res.redirect('/teacher/dashboard');
     }
     else {
-
         const response = await fetch("http://localhost:3000/student/findResult", {
             method: 'POST',
             headers: {
@@ -57,17 +55,23 @@ router.post('/searchResult', async (req, res) => {
             },
             body: JSON.stringify(req.body)
         });
-
         response.json().then(data => {
             var msg = data
                 ? " : Result found for Roll no. " + req.body.RollNo + " with DOB " + req.body.DOB
                 : "No result found";
             console.log(response.status + " : " + msg);
-            res.render('dashboardStudent', { title: "Student Result", result: data, called: true })
+            res.set('Cache-Control', 'no-store');
+            res.render(
+                'dashboardStudent',
+                {
+                    title: "Student Result",
+                    result: data,
+                    called: true,
+                    error: data.error,
+                    status: response.status
+                })
         });
-
     }
-
 })
 
 

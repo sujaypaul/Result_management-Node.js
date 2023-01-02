@@ -43,6 +43,9 @@ app.get('/', (req, res) => {
         res.render('base', { title: "Login" });
     }
 })
+app.get('/loginAgain',(req,res)=>{
+    res.render('base', { title: "Login" });
+})
 
 // route for logout
 app.get('/logout', (req ,res)=>{

@@ -46,7 +46,19 @@
                     </div>
                     <div class="modal-body">
 
-                        <% if(locals.result) {%>
+                        <h3 style="color: red; text-align: center;">
+                            <%= locals.error ? error : null %>
+                            <%= locals.status==401 ? "/ token expired": null  %> 
+                        </h3>
+                        
+                        <% if(locals.status==401) {%>
+                            <form action="/loginAgain" style="text-align: center">
+                                <button type="submit" class="btn btn-info py-0 px-2">Login again</button>
+                            </form>
+                            <br>
+                        <% } %> 
+
+                        <% if(locals.result!==null && locals.status==200) {%>
                             <div class="container col">
                                 <div class="row">
                                     <div><b> Roll No :</b></div>
@@ -62,7 +74,7 @@
                                         <%= result.Name %>
                                     </div>
                                     <div>
-                                        <%= result.DOB.split("-").reverse().join("-") %>
+                                        <%= result.DOB %>
                                     </div>
                                     <div>
                                         <%= result.Score %>
@@ -73,21 +85,11 @@
                                 </div>
                             </div>
 
-                            <script>
-                                function simulateClick(control) {
-                                    if (document.all) {
-                                        control.click();
-                                    } else {
-                                        var evObj = document.createEvent('MouseEvents');
-                                        evObj.initMouseEvent('click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null);
-                                        control.dispatchEvent(evObj);
-                                    }
-                                }
-                                simulateClick(document.getElementById('view'));
-                            </script>
+                            
 
-                            <% }else if(locals.result==null){ %>
-                                <div style="color: red; text-align: center;">No result found</div>
+                            
+                                <% } %>
+
                                 <script>
                                     function simulateClick(control) {
                                         if (document.all) {
@@ -99,8 +101,7 @@
                                         }
                                     }
                                     simulateClick(document.getElementById('view'));
-                                </script>
-                                <% } %>
+                                </script>   
                     </div>
                     <div class="modal-footer">
                         <button onclick="window.location.href='/student/dashboard';" type="button"

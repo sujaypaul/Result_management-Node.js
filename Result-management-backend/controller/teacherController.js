@@ -51,7 +51,7 @@ router.post('/addResult', userService.authenticateJWT("teacher"), async (req, re
         const dupResult = await resultService.findRoll(req.body.RollNo);
         const results = await resultService.getAll();
         if (dupResult) {
-            return res.status(409).json({ error: "duplicate data found",results });
+            return res.status(409).json({ error: "duplicate data found",results:results });
         } else {
             const result = await resultService.create(req.body);
             return res.status(201).json({result,results});
@@ -96,7 +96,7 @@ router.delete('/deleteResult/:RollNo', userService.authenticateJWT("teacher"), a
 //________________GET RESULTS LIST_________________
 router.get('/resultList', userService.authenticateJWT("teacher"), async (req, res) => {
     const results = await resultService.getAll();
-    res.json(results);
+    res.json({results:results});
 })
 
 

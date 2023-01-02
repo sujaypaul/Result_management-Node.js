@@ -48,7 +48,11 @@ class UserService {
             const passIsValid = await bcrypt.compare(user.password, dbUser.password);
 
             if (passIsValid) {
-                const token = jwt.sign({ "id": dbUser.id, "email": dbUser.email, "role": dbUser.role }, process.env.JWT_KEY);
+                const token = jwt.sign(
+                    { "id": dbUser.id, "email": dbUser.email, "role": dbUser.role },
+                    process.env.JWT_KEY,
+                    {expiresIn:"1h"}
+                );
                 return { Token: token };
             } else {
                 return null;

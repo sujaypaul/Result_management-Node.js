@@ -4,7 +4,6 @@ var fetch = require('node-fetch')
 
 //login
 router.post('/login', (req, res) => {
-
     fetch('http://localhost:3000/teacher/login', {
         method: 'POST',
         body: JSON.stringify(req.body),
@@ -26,7 +25,6 @@ router.post('/login', (req, res) => {
 
 // route for dashboard
 router.get('/dashboard', async (req, res) => {
-
     if (!req.session.token) {
         res.redirect("/")
     }
@@ -34,7 +32,6 @@ router.get('/dashboard', async (req, res) => {
         res.redirect('/student/dashboard');
     }
     else {
-
         const response = await fetch("http://localhost:3000/teacher/resultList", {
             method: 'GET',
             headers: {
@@ -43,26 +40,30 @@ router.get('/dashboard', async (req, res) => {
                 'Authorization': 'Bearer ' + req.session.token
             }
         });
-
         response.json().then(data => {
-            data.sort((a, b) => {
-                return a.RollNo - b.RollNo;
-            });
+            var Data = data.results;
+            if (data.error == null) {
+                Data.sort((a, b) => {
+                    return a.RollNo - b.RollNo;
+                });
+            }else{
+                Data=[];
+            }
+            res.set('Cache-Control', 'no-store');
             res.render(
                 'dashboardTeacher',
                 {
                     title: "Teacher Dashboard",
-                    student: data,
-                    error: null
+                    student: Data,
+                    error: data.error,
+                    status: response.status
                 })
         });
-
     }
 })
 
 //addResult
 router.post('/addResult', async (req, res) => {
-
     if (!req.session.token) {
         res.redirect("/")
     }
@@ -70,7 +71,6 @@ router.post('/addResult', async (req, res) => {
         res.redirect('/student/dashboard');
     }
     else {
-
         const response = await fetch("http://localhost:3000/teacher/addResult/", {
             method: 'POST',
             headers: {
@@ -80,14 +80,18 @@ router.post('/addResult', async (req, res) => {
             },
             body: JSON.stringify(req.body)
         });
-
         response.json().then(data => {
             if (data.error) {
                 console.log(response.status + " : cannot add " + data.error);
-                const Data = data.results;
-                Data.sort((a, b) => {
-                    return a.RollNo - b.RollNo;
-                });
+                var Data = data.results;
+                if (response.status !== 401) {
+                    Data.sort((a, b) => {
+                        return a.RollNo - b.RollNo;
+                    });
+                }else{
+                    Data=[];
+                }               
+                res.set('Cache-Control', 'no-store');
                 res.render(
                     'dashboardTeacher',
                     {
@@ -101,14 +105,12 @@ router.post('/addResult', async (req, res) => {
                 res.redirect('/teacher/dashboard');
             }
         });
-
     }
 })
 
 
 //updateResult
 router.post('/updateResult', async (req, res) => {
-
     if (!req.session.token) {
         res.redirect("/")
     }
@@ -116,9 +118,7 @@ router.post('/updateResult', async (req, res) => {
         res.redirect('/student/dashboard');
     }
     else {
-
         const rollNo = req.body.RollNo;
-
         const response = await fetch("http://localhost:3000/teacher/updateResult/" + rollNo, {
             method: 'PUT',
             headers: {
@@ -128,15 +128,11 @@ router.post('/updateResult', async (req, res) => {
             },
             body: JSON.stringify(req.body)
         });
-
         response.json().then(data => {
             console.log(response.status + " : " + "Result updated for Roll no - " + rollNo);
             res.redirect('/teacher/dashboard');
         });
-
     }
-
-
 })
 
 
